@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Metric Registrar Examples</title>
+  <style>
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      height: 64px;
+    }
+
+    button {
+      height: 64px;
+      width: 320px;
+
+      font-size: 18px;
+      font-family: Impact, sans-serif;
+    }
+  </style>
+
+  <script>
+    function fetchSimple() {
+      fetch('/simple');
+    }
+
+    function fetchHighLatency() {
+      fetch('/high_latency');
+    }
+
+    function fetchCustomMetric() {
+      fetch('/custom_metric');
+    }
+
+  </script>
+</head>
+<body>
+<div>
+  <ul>
+    <li>
+      <button type="button" onclick="fetchSimple()">SIMPLE</button>
+    </li>
+
+    <li>
+      <button type="button" onclick="fetchHighLatency()">HIGH LATENCY</button>
+    </li>
+
+    <li>
+      <button type="button" onclick="fetchCustomMetric()">CUSTOM METRIC</button>
+    </li>
+
+    <li/>
+
+    <li>
+      <a href="/actuator/prometheus">
+        <button type="button">SEE THE METRICS</button>
+      </a>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
