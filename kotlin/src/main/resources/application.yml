@@ -1,0 +1,20 @@
+---
+management:
+  metrics:
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
+        step: 1m
+
+  endpoint:
+    prometheus:
+      enabled: true
+      cache:
+        time-to-live: 0ms
+
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+      base-path: /actuator
