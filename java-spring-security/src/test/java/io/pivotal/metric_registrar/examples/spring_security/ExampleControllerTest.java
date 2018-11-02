@@ -12,8 +12,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.WebApplicationContext;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotNull;
@@ -24,9 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest
+@WebAppConfiguration
 public class ExampleControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext wac;
 
     @MockBean
     private MeterRegistry registry;
@@ -37,16 +46,12 @@ public class ExampleControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
     @After
     public void tearDown() {
         validateMockitoUsage();
-    }
-
-    @Test
-    public void contextLoads() {
-        assertNotNull(mockMvc);
     }
 
     @Test
@@ -70,8 +75,6 @@ public class ExampleControllerTest {
 
     private void expectOkResponse(String requestURI) throws Exception {
         RequestBuilder get = servletContext -> new MockHttpServletRequest("GET", requestURI);
-        assertNotNull(mockMvc);
-        assertNotNull(get);
         mockMvc.perform(get)
                 .andExpect(status().isOk())
                 .andExpect(content().string("OK"));
