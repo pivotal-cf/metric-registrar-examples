@@ -13,6 +13,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .requestMatchers(examplesRequestMatcher()).permitAll()
                 .and().authorizeRequests()
+                .requestMatchers((request) -> request.getServletPath().equals("/")).permitAll()
+                .and().authorizeRequests()
                 .requestMatchers(endpointRequestMatcher()).permitAll()
                 .and().authorizeRequests()
                 .anyRequest().denyAll();

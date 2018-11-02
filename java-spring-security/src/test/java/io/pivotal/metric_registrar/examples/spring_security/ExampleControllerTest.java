@@ -12,16 +12,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -71,6 +68,12 @@ public class ExampleControllerTest {
         when(registry.counter(anyString())).thenReturn(counter);
         expectOkResponse("/custom_metric");
         verify(counter).increment();
+    }
+
+    @Test
+    public void htmlHarness() throws Exception {
+        mockMvc.perform(servletContext -> new MockHttpServletRequest("GET", "/"))
+                .andExpect(status().isOk());
     }
 
     private void expectOkResponse(String requestURI) throws Exception {
