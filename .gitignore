@@ -17,3 +17,9 @@
 *.iml
 *.ipr
 /out/
+
+golang/bin/
+golang/src/github.com
+golang/src/golang.org/
+golang/src/gopkg.in/
+kotlin/build/
