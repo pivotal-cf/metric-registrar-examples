@@ -1,5 +1,7 @@
+bin/
+build/
+
 .gradle
-/build/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -18,8 +20,6 @@
 *.ipr
 /out/
 
-golang/bin/
 golang/src/github.com
 golang/src/golang.org/
 golang/src/gopkg.in/
-kotlin/build/
