@@ -29,9 +29,9 @@ To look at all the counters emitted by an app, run:
 cf tail -f --envelope-type=counter <APP_NAME>
 ```
 
-To look at all the guages emitted by an app, run:
+To look at all the gauges emitted by an app, run:
 
 ```
-cf tail -f --envelope-type=guage <APP_NAME>
+cf tail -f --envelope-type=gauge <APP_NAME>
 ```
 
