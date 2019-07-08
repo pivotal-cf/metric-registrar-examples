@@ -5,21 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Metric Registrar Examples</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
+    body {
+      display: flex;
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      margin: auto;
+      text-align: center;
+    }
+
     ul {
-      list-style-type: none;
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     li {
-      height: 64px;
+      margin: 4px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
     }
 
     button {
-      height: 64px;
-      width: 320px;
+      min-height: 72px;
+      margin: 4px;
+      padding: 8px;
+      flex-grow: 1;
 
       font-size: 18px;
-      font-family: Impact, sans-serif;
+      line-height: 24px;
+      color: #FFF;
+      border: 1px dashed #000;
+      background-color: #01b5a3;
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00cec2;
     }
   </style>
 
@@ -32,32 +60,37 @@
       fetch('/high_latency');
     }
 
-    function fetchCustomMetric() {
-      fetch('/custom_metric');
+    function fetchCustomMetric(direction) {
+      if (direction) 
+        fetch('/custom_metric?inc=1');
+      else
+        fetch('/custom_metric');
     }
-
   </script>
 </head>
 <body>
-<div>
+<div class="container">
+  <div class="header">
+    <h1>Custom Application Metric</h1>
+    <p>Clicking the buttons below to update custom metrics</p>
+  </div>
   <ul>
     <li>
-      <button type="button" onclick="fetchSimple()">SIMPLE</button>
+      <button type="button" onclick="fetchSimple()">Increment Simple counter</button>
     </li>
 
     <li>
-      <button type="button" onclick="fetchHighLatency()">HIGH LATENCY</button>
+      <button type="button" onclick="fetchHighLatency()">Call an endpoint with high latency</button>
     </li>
 
     <li>
-      <button type="button" onclick="fetchCustomMetric()">CUSTOM METRIC</button>
+      <button type="button" onclick="fetchCustomMetric(true)">Increment Custom gauge</button>
+      <button type="button" onclick="fetchCustomMetric()">Decrement Custom gauge</button>
     </li>
 
-    <li/>
-
     <li>
-      <a href="/metrics">
-        <button type="button">SEE THE METRICS</button>
+      <a href="/metrics" target="_blank">
+        <button type="button">See the metrics</button>
       </a>
     </li>
   </ul>
