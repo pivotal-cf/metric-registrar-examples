@@ -2,10 +2,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: "metrics,prometheus"
+        include: "prometheus"
   endpoint:
-    metrics:
-      enabled: true
     prometheus:
       enabled: true
-
