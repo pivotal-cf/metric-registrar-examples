@@ -15,18 +15,11 @@ cf install-plugin -r CF-Community "metric-registrar"
 cf install-plugin -r CF-Community "log-cache"
 ```
 
-### Push the app
-```
-cd metric-registrar-examples/java-spring-security
-./gradlew build
-cf push
-```
-
 ### Register the endpoint
 To register an app's metric endpoint with the Metric Registrar, run:
 
 ```
-cf register-metrics-endpoint <APP_NAME> /actuator/prometheus
+cf register-metrics-endpoint <APP_NAME> /actuator/metrics
 ```
 
 ### Make sure the app is emitting metrics
