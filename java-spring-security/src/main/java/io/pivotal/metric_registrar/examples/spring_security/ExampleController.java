@@ -1,7 +1,6 @@
 package io.pivotal.metric_registrar.examples.spring_security;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Counter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +13,11 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ExampleController {
 
     private MeterRegistry registry;
-    private AtomicLong customGauge; 
-    private Counter simpleCounter;
+    private AtomicLong custom;
 
     public ExampleController(MeterRegistry registry) {
         this.registry = registry;
-        this.customGauge = registry.gauge("custom", new AtomicLong(0));
-        this.simpleCounter = registry.counter("simple");
+        this.custom = new AtomicLong(0L);
     }
 
     @GetMapping("/high_latency")
@@ -31,10 +28,11 @@ public class ExampleController {
 
     @GetMapping("/custom_metric")
     public ResponseEntity<String> customMetric(@RequestParam(value="inc", defaultValue="") String increment) {
+        AtomicLong customGauge = registry.gauge("custom", this.custom);
         if (!"".equals(increment)) {
-            this.customGauge.incrementAndGet();
+            customGauge.incrementAndGet();
         } else {
-            this.customGauge.decrementAndGet();
+            customGauge.decrementAndGet();
         }
         
         return new ResponseEntity<>("{}", null, HttpStatus.OK);
@@ -42,7 +40,7 @@ public class ExampleController {
 
     @GetMapping("/simple")
     public ResponseEntity<String> simple() {
-        this.simpleCounter.increment();
+        registry.counter("simple").increment();
         return new ResponseEntity<>("{}", null, HttpStatus.OK);
     }
 }

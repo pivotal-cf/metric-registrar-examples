@@ -19,10 +19,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest
@@ -38,7 +41,7 @@ public class ExampleControllerTest {
     private MeterRegistry registry;
 
     @Mock
-    private Counter counter;
+    private Counter simpleCounter;
 
     @Before
     public void setUp() {
@@ -53,7 +56,9 @@ public class ExampleControllerTest {
 
     @Test
     public void simpleEndpoint() throws Exception {
+        when(registry.counter(anyString())).thenReturn(simpleCounter);
         expectOkResponse("/simple");
+        verify(simpleCounter).increment();
     }
 
     @Test
@@ -65,9 +70,12 @@ public class ExampleControllerTest {
 
     @Test
     public void customMetricEndpoint() throws Exception {
-        when(registry.counter(anyString())).thenReturn(counter);
+        AtomicLong customGauge = new AtomicLong(0L);
+        when(registry.gauge(anyString(), any())).thenReturn(customGauge);
+        expectOkResponse("/custom_metric", "inc", "1");
+        assertEquals(1L, customGauge.get());
         expectOkResponse("/custom_metric");
-        verify(counter).increment();
+        assertEquals(0L, customGauge.get());
     }
 
     @Test
@@ -78,8 +86,21 @@ public class ExampleControllerTest {
 
     private void expectOkResponse(String requestURI) throws Exception {
         RequestBuilder get = servletContext -> new MockHttpServletRequest("GET", requestURI);
+
         mockMvc.perform(get)
                 .andExpect(status().isOk())
-                .andExpect(content().string("OK"));
+                .andExpect(content().string("{}"));
+    }
+
+    private void expectOkResponse(String requestURI, String name, String value) throws Exception {
+        RequestBuilder get = servletContext -> {
+            MockHttpServletRequest req = new MockHttpServletRequest("GET", requestURI);
+            req.addParameter(name, value);
+            return req;
+        };
+
+        mockMvc.perform(get)
+                .andExpect(status().isOk())
+                .andExpect(content().string("{}"));
     }
 }
