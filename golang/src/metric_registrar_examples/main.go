@@ -17,7 +17,7 @@ var simpleCounter = promauto.NewCounter(prometheus.CounterOpts{
 	Help: "Increments when /simple handler is called",
 })
 
-var customCounter = promauto.NewGauge(prometheus.GaugeOpts{
+var customGauge = promauto.NewGauge(prometheus.GaugeOpts{
 	Name: "custom",
 	Help: "Custom gauge used to scale app instances",
 })
@@ -73,9 +73,9 @@ func highLatency(w http.ResponseWriter, _ *http.Request) {
 
 func customMetric(w http.ResponseWriter, r *http.Request) {
 	if r.FormValue("inc") != "" {
-		customCounter.Inc()
+		customGauge.Inc()
 	} else {
-		customCounter.Dec()
+		customGauge.Dec()
 	}
 
 	w.Write([]byte("{}"))
