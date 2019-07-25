@@ -15,14 +15,14 @@ cf install-plugin -r CF-Community "metric-registrar"
 cf install-plugin -r CF-Community "log-cache"
 ```
 
-### Register
+### Register the endpoint
 To register an app's metric endpoint with the Metric Registrar, run:
 
 ```
-cf register-metrics-endpoint <APP_NAME> /actuator/prometheus
+cf register-metrics-endpoint <APP_NAME> /actuator/metrics
 ```
 
-### Test
+### Make sure the app is emitting metrics
 To look at all the counters emitted by an app, run:
 
 ```
@@ -35,3 +35,11 @@ To look at all the gauges emitted by an app, run:
 cf tail -f --envelope-type=gauge <APP_NAME>
 ```
 
+If you don't see anything contact your platform support to enable the Metric Registrar.
+
+### Want to make a change?
+
+Make sure you run all the tests before submitting a PR
+```
+./gradlew tests
+```
