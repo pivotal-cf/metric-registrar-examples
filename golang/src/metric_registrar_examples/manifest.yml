@@ -1,0 +1,10 @@
+---
+applications:
+  - name: go-metric-registrar-demo
+    env:
+      GOVERSION: go1.12
+      GOPACKAGENAME: main
+    buildpacks:
+      - go_buildpack
+    memory: 64MB
+    disk_quota: 128MB
