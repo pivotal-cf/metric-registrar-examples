@@ -3,6 +3,7 @@
 The examples are organized in the following folders 
 
 * [Java using Spring Security](java-spring-security/)
+* [Java converting Spring Actuator Metrics to Structured Logs](java-spring-actuator-metrics-to-structured-logs/)
 * [Kotlin](kotlin/)
 * [Go](golang/)
 

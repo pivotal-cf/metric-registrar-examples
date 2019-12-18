@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.slf4j.Logger;
-import org.springframework.security.web.savedrequest.Enumerator;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collections;
@@ -30,7 +29,6 @@ public class ActuatorToLogsEmitterTest {
             1.0
     );
 
-
     @Mock
     CollectorRegistry collectorRegistry;
 
@@ -50,7 +48,7 @@ public class ActuatorToLogsEmitterTest {
 
     @Test
     public void emitsGauge() {
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 singletonList(
                         new Collector.MetricFamilySamples("example", Collector.Type.GAUGE, "", singletonList(sample))
                 )
@@ -63,7 +61,7 @@ public class ActuatorToLogsEmitterTest {
 
     @Test
     public void emitsCounter() {
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 singletonList(
                         new Collector.MetricFamilySamples("example", Collector.Type.COUNTER, "", singletonList(sample))
                 )
@@ -77,7 +75,7 @@ public class ActuatorToLogsEmitterTest {
 
     @Test
     public void parsesLabelsIntoTags() {
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 singletonList(
                         new Collector.MetricFamilySamples("example", Collector.Type.COUNTER, "", singletonList(sample))
                 )
@@ -91,11 +89,9 @@ public class ActuatorToLogsEmitterTest {
     @Test
     public void doesNotEmitIfTypeIsUnknown() {
         Iterator<Collector.MetricFamilySamples> objectIterator = Collections.emptyIterator();
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 singletonList(
-                        new Collector.MetricFamilySamples("example", Collector.Type.HISTOGRAM, "",
-                                singletonList(sample)
-                        )
+                        new Collector.MetricFamilySamples("example", Collector.Type.HISTOGRAM, "", singletonList(sample))
                 )
         ));
 
@@ -106,7 +102,7 @@ public class ActuatorToLogsEmitterTest {
 
     @Test
     public void doesNotEmitIfNoSamplesPresent() {
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(emptyList()));
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(emptyList()));
 
         emitter.emit();
 
@@ -115,7 +111,7 @@ public class ActuatorToLogsEmitterTest {
 
     @Test
     public void handlesMultipleMetricFamilies() {
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 asList(
                         new Collector.MetricFamilySamples("example", Collector.Type.COUNTER, "", singletonList(sample)),
                         new Collector.MetricFamilySamples("example2", Collector.Type.GAUGE, "", singletonList(sample))
@@ -132,7 +128,7 @@ public class ActuatorToLogsEmitterTest {
     @Test
     public void handlesMultipleSamples() {
         Iterator<Collector.MetricFamilySamples> objectIterator = Collections.emptyIterator();
-        when(collectorRegistry.metricFamilySamples()).thenReturn(new Enumerator<>(
+        when(collectorRegistry.metricFamilySamples()).thenReturn(Collections.enumeration(
                 singletonList(
                         new Collector.MetricFamilySamples("example", Collector.Type.COUNTER, "",
                                 asList(
