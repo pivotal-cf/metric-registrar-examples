@@ -1,3 +1,4 @@
+# NOTE: Deprecated in favor of the examples directory in [Metric Registrar Release](https://github.com/pivotal-cf/metric-registrar-release)
 # Examples for the Metric Registrar
 
 The examples are organized in the following folders 
