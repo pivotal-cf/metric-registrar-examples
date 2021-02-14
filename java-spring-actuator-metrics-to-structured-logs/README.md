@@ -38,7 +38,7 @@ cf push
 You'll need to add the structured log format to the application after its been pushed. 
 
 ```
-cf register-log-format go-metric-registrar-demo json
+cf register-log-format java-metric-registrar-actuator-demo json
 ```
 
 [Look here](https://docs.pivotal.io/pivotalcf/2-5/metric-registrar/using.html#register-log-format) for more info on structured logs
