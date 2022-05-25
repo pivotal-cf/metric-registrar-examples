@@ -2,7 +2,7 @@
 applications:
   - name: java-metric-registrar-demo
     buildpacks:
-      - java_buildpack
+      - java_buildpack_offline
     memory: 2GB
     disk_quota: 1GB
     path: build/libs/spring-security-example-0.0.1-SNAPSHOT.jar
