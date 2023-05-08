@@ -69,7 +69,7 @@ public class ActuatorToLogsEmitterTest {
 
         emitter.emit();
 
-        verify(logger).info(matches(".*\"type\": \"counter\".*\"delta\": 1.0.*"));
+        verify(logger).info(matches(".*\"type\": \"counter\".*\"delta\": 1.*"));
 
     }
 
