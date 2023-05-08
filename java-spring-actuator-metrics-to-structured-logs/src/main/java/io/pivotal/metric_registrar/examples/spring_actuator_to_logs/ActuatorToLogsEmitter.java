@@ -48,7 +48,7 @@ public class ActuatorToLogsEmitter {
             case GAUGE:
                 return String.format("{ \"type\": \"gauge\", \"value\": %s, %s", sample.value, nameAndTags);
             case COUNTER:
-                return String.format("{ \"type\": \"counter\", \"delta\": %s, %s", sample.value, nameAndTags);
+                return String.format("{ \"type\": \"counter\", \"delta\": %s, %s", (int)(sample.value), nameAndTags);
             default:
                 return null;
         }
