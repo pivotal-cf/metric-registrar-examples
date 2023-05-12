@@ -42,5 +42,5 @@ If you don't see anything contact your platform support to enable the Metric Reg
 
 Make sure you run all the tests before submitting a PR
 ```
-./gradlew tests
+./gradlew test
 ```

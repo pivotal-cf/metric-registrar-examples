@@ -1,0 +1,23 @@
+name: Java
+
+on:
+  push:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3.11.0
+        with:
+          java-version: 11
+          distribution: microsoft
+      - run: ./gradlew test
+        working-directory: java-spring-actuator-metrics-to-structured-logs
+      - run: ./gradlew test
+        working-directory: java-spring-security
+      - run: ./gradlew test
+        working-directory: kotlin
