@@ -3,7 +3,7 @@ package io.pivotal.metric_registrar.examples.kotlin.controllers
 import com.nhaarman.mockitokotlin2.*
 import io.micrometer.core.instrument.Counter
 import io.micrometer.core.instrument.MeterRegistry
-import org.junit.Assert
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -40,7 +40,7 @@ class ExampleControllerTest(@Autowired private val mockMvc: MockMvc) {
     fun highLatency() {
         val startTime = System.currentTimeMillis();
         mockMvc.perform(get("/high_latency")).andExpect(status().isOk)
-        Assert.assertTrue("Too Fast", System.currentTimeMillis() - startTime > 2 * Timer.ONE_SECOND)
+        assertTrue(System.currentTimeMillis() - startTime > 2 * Timer.ONE_SECOND, "Too Fast")
     }
 
     @Test
