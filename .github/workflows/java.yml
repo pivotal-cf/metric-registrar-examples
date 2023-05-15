@@ -15,9 +15,12 @@ jobs:
         with:
           java-version: 11
           distribution: microsoft
-      - run: ./gradlew test
+      - name: Java converting Spring Actuator Metrics to Structured Logs tests
+        run: ./gradlew test
         working-directory: java-spring-actuator-metrics-to-structured-logs
-      - run: ./gradlew test
+      - name: Java using Spring Security tests
+        run: ./gradlew test
         working-directory: java-spring-security
-      - run: ./gradlew test
+      - name: Kotlin tests
+        run: ./gradlew test
         working-directory: kotlin
