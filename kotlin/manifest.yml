@@ -6,3 +6,5 @@ applications:
     path: build/libs/kotlin-0.0.1-SNAPSHOT.jar
     memory: 1GB
     disk_quota: 1GB
+    env:
+      JBP_DEFAULT_OPEN_JDK_JRE: "{jre: {version: 17.+ }}"
