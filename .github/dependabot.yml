@@ -19,6 +19,9 @@ updates:
     directory: "java-spring-security"
     schedule:
       interval: "weekly"
+    ignore:
+    - dependency-name: "org.springframework.boot"
+      update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "gradle"
     directory: "kotlin"
