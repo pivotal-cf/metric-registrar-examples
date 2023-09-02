@@ -2,7 +2,7 @@
 applications:
   - name: go-metric-registrar-demo
     env:
-      GOVERSION: go1.17
+      GOVERSION: go1.20
       GOPACKAGENAME: main
     buildpacks:
       - go_buildpack
