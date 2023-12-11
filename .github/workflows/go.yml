@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v4
+      - uses: actions/setup-go@v5
         with:
           go-version-file: golang/src/metric_registrar_examples/go.mod
       - run: go run github.com/onsi/ginkgo/v2/ginkgo -r --compilers=3 --randomize-all --randomize-suites --fail-on-pending --keep-going --race --trace
