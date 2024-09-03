@@ -1,7 +1,8 @@
 module github.com/pivotal-cf/metric_registrar_examples
 
-go 1.21.0
-toolchain go1.22.5
+go 1.22.0
+
+toolchain go1.22.6
 
 require (
 	github.com/gorilla/mux v1.8.1
