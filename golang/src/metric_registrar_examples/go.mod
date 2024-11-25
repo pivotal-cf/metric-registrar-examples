@@ -7,7 +7,7 @@ toolchain go1.22.6
 require (
 	github.com/gorilla/mux v1.8.1
 	github.com/onsi/ginkgo/v2 v2.21.0
-	github.com/onsi/gomega v1.35.1
+	github.com/onsi/gomega v1.36.0
 	github.com/prometheus/client_golang v1.20.5
 )
 
