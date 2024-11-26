@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package io.pivotal.metric_registrar.examples.kotlin.controllers
 
 import com.nhaarman.mockitokotlin2.*
