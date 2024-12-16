@@ -32,7 +32,7 @@ dependencies {
 	)
 
 	testRuntimeOnly(
-		"org.junit.platform:junit-platform-launcher:1.11.3"
+		"org.junit.platform:junit-platform-launcher:1.11.4"
 	)
 }
 
